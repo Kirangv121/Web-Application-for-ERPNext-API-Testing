@@ -367,21 +367,43 @@ const RequestBuilder = ({ initialRequest, onRequest, onResponse, onNavigate }) =
       {/* Response Display Section */}
       {(response || responseError) && (
         <div className="card" style={{ marginTop: '20px' }}>
-          <h3>Response</h3>
+          <div className="card-header">
+            <h3 className="card-title">
+              📡 API Response
+            </h3>
+          </div>
           {responseError ? (
             <div className="error-message">
-              <h4>Error:</h4>
-              <pre>{responseError}</pre>
-            </div>
-          ) : (
-            <div className="response-display">
-              <h4>Success Response:</h4>
+              <h4>❌ Error Response:</h4>
               <pre style={{ 
-                backgroundColor: '#f8f9fa', 
+                backgroundColor: '#1e293b', 
+                color: '#e2e8f0',
                 padding: '15px', 
                 borderRadius: '5px',
                 overflow: 'auto',
-                maxHeight: '400px'
+                maxHeight: '400px',
+                fontFamily: 'JetBrains Mono, Fira Code, Courier New, monospace',
+                fontSize: '0.875rem',
+                lineHeight: '1.6'
+              }}>
+                {responseError}
+              </pre>
+            </div>
+          ) : (
+            <div className="response-display">
+              <div className="success-message" style={{ marginBottom: '15px' }}>
+                ✅ <strong>Success Response</strong> - Request completed successfully
+              </div>
+              <pre style={{ 
+                backgroundColor: '#1e293b', 
+                color: '#e2e8f0',
+                padding: '15px', 
+                borderRadius: '5px',
+                overflow: 'auto',
+                maxHeight: '400px',
+                fontFamily: 'JetBrains Mono, Fira Code, Courier New, monospace',
+                fontSize: '0.875rem',
+                lineHeight: '1.6'
               }}>
                 {JSON.stringify(response, null, 2)}
               </pre>

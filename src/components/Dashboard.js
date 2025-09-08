@@ -312,11 +312,23 @@ const Dashboard = ({ onRequest, onNavigate }) => {
                 🔗 Test in Browser
               </button>
               
-              {connectionStatus === 'success' && (
-                <span className="success-message">✅ Connection successful!</span>
+              {successMessage && (
+                <div className="success-message">
+                  {successMessage}
+                  {userInfo && (
+                    <div style={{ 
+                      marginTop: '5px', 
+                      fontSize: '0.9em', 
+                      fontWeight: 'bold',
+                      color: '#155724'
+                    }}>
+                      👤 User: {userInfo}
+                    </div>
+                  )}
+                </div>
               )}
-              {connectionStatus === 'error' && (
-                <span className="error-message">❌ Connection failed</span>
+              {connectionStatus === 'error' && error && (
+                <div className="error-message">❌ Connection failed: {error}</div>
               )}
             </div>
           </div>
@@ -325,20 +337,24 @@ const Dashboard = ({ onRequest, onNavigate }) => {
         {!showConnectionForm && baseURL && (
           <div style={{ padding: '10px', background: '#f8f9fa', borderRadius: '4px', marginBottom: '15px' }}>
             <strong>Connected to:</strong> {baseURL}
-            {connectionStatus === 'success' && <span className="success-message"> ✅</span>}
-            {connectionStatus === 'error' && <span className="error-message"> ❌</span>}
+            {connectionStatus === 'success' && (
+              <span className="success-message" style={{ marginLeft: '10px' }}>
+                ✅ Connected
+                {userInfo && (
+                  <span style={{ marginLeft: '5px', fontSize: '0.9em' }}>
+                    (👤 {userInfo})
+                  </span>
+                )}
+              </span>
+            )}
+            {connectionStatus === 'error' && (
+              <span className="error-message" style={{ marginLeft: '10px' }}>❌ Connection Failed</span>
+            )}
           </div>
         )}
         
-        {error && (
-          <div style={{ 
-            padding: '15px', 
-            background: '#f8d7da', 
-            border: '1px solid #f5c6cb', 
-            borderRadius: '4px', 
-            marginBottom: '15px',
-            color: '#721c24'
-          }}>
+        {connectionStatus === 'error' && error && (
+          <div className="error-message" style={{ marginBottom: '15px' }}>
             <strong>⚠️ Connection Error:</strong>
             <div style={{ marginTop: '10px', fontSize: '14px' }}>
               {error}
